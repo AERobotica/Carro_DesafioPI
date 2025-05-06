@@ -1,1 +1,3 @@
 teste de commit
+verificar conflito.
+teste 2.
