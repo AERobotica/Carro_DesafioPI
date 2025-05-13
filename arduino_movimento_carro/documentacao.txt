@@ -1,0 +1,5 @@
+L298N - Driver Motor
+https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/ 
+
+Motor + encoder
+https://www.youtube.com/watch?v=dTGITLnYAY0
