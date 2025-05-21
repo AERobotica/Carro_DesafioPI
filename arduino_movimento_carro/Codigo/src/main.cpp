@@ -2,7 +2,7 @@
 
 /*####### MOTOR #######*/
 #define motor_yellow 2 //ENCA_motor
-#define motor_white 3 //ENCB_motor
+#define motor_white 4 //ENCB_motor
 //motor_blue  -> +5V
 //motor_green -> GND
 
