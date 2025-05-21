@@ -30,6 +30,11 @@ float Encoder::get_RPM()
         delta_tempo = (4294967295UL - _tempo_last) + millis(); 
     }
 
+    //Serial.println("delta_tempo: " + String(delta_tempo));
+    if(delta_tempo == 0){
+        return 0.0;
+    }
+
     float RPM = (rotacoes*1000.0*60.0)/((float)(delta_tempo));
     _tempo_last = millis();
     
@@ -41,7 +46,6 @@ float Encoder::get_RPM()
       _passos_encoder = 0;
       _passos_encoder_last = 0;
     }
-
     return RPM;
 }
 

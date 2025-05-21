@@ -26,25 +26,23 @@ PID::PID(float Kc, float Ti, float T_s)//T_s em segundos
 
 uint16_t PID::controlador(float setpoint, float truepoint)
 {
+    //Serial.println("erro: " + String(setpoint - truepoint));
+    _erro = setpoint - truepoint;
     //Controlador PI
   _atuacao = (_Kc + ((_Kc*_T)/(_Ti)))*_erro - _Kc*_erro_anterior + _atuacao_anterior;
 
   _erro_anterior = _erro;
   _atuacao_anterior = _atuacao;
 
-  Serial.println("Erro: " + String(_erro) + " | Atuação: " + String(_atuacao));
-
+  //Serial.println("Erro: " + String(_erro) + " | Atuação: " + String(_atuacao));
+  //Serial.println("Kc:" + String(_Kc) + "_T:" + String(_T) + "_Ti:" + String(_Ti));
   //atuacao de 0 a 100%
-  if(_atuacao > 30){
-    _atuacao = 30;
+  if(_atuacao > 100){
+    _atuacao = 100;
   }else if(_atuacao < 0){
     _atuacao = 0;
   }
-
-  //passar de 0-100% para 0-1024
-  _atuacao = (_atuacao*1024)/100;
-
-  Serial.println("Atuação Filtrada: " + String(_atuacao));
+  //Serial.println("Atuação Filtrada: " + String(_atuacao));
 
   return _atuacao;
 

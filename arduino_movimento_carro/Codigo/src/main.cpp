@@ -8,7 +8,7 @@ volatile long passos_encoder=0; //volatile para ser possivel alterar o valor for
 long passos_encoder_last = 0;
 
 Encoder encoder_frente_esq(2, 4);
-Motor   motor_frente_esq(5,6,7);
+Motor   motor_frente_esq(5,6,7, encoder_frente_esq);
 
 void motor_frente_esq_read_encoder(){
   if(digitalRead(encoder_frente_esq.motor_white) == 0){
@@ -30,13 +30,7 @@ void loop() {
   }else if(millis() < tempo){
     tempo = millis();
   }
+  
+  motor_frente_esq.setpoint_RPM(100.0);
 
-  motor_frente_esq.setpoint_perc(0);
-  delay(500);
-  motor_frente_esq.setpoint_perc(100);
-  delay(2000);
-  motor_frente_esq.setpoint_perc(0);
-  delay(500);
-  motor_frente_esq.setpoint_perc(-100);
-  delay(2000);
 }

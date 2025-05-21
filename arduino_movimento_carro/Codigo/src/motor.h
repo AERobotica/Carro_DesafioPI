@@ -2,7 +2,8 @@
 #define MOTOR_H
 
 #include <Arduino.h>
-
+#include "encoder.h"
+#include "PID.h"
 /*
 ####### L298N - DRIVER ######
 #define driver_ENA 5
@@ -16,9 +17,12 @@ private:
     int _ENA;
     int _IN1;
     int _IN2;
+    Encoder& _encoder;
+    PID _PID_RPM;
 public:
-    Motor(int ENA, int IN1, int IN2);
+    Motor(int ENA, int IN1, int IN2, Encoder& encoder);
     void setpoint_perc(float setpoint);
+    void setpoint_RPM(float setpoint_RPM);
 };
 
 
