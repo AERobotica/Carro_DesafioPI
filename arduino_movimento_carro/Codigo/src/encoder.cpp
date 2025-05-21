@@ -41,8 +41,6 @@ float Encoder::get_RPM()
       _passos_encoder = 0;
       _passos_encoder_last = 0;
     }
-    
-    Serial.println("RPM: " + String(RPM) + " | Delta Tempo: " + String(delta_tempo) + " | Passos Encoder: " + _passos_encoder + " | Rotações: " + rotacoes);
 
     return RPM;
 }
