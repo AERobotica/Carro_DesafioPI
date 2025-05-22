@@ -31,6 +31,6 @@ void loop() {
     tempo = millis();
   }
   
-  motor_frente_esq.setpoint_RPM(100.0);
+  motor_frente_esq.setpoint_cm_per_s(60.8);
 
 }

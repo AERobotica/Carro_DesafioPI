@@ -19,10 +19,12 @@ private:
     int _IN2;
     Encoder& _encoder;
     PID _PID_RPM;
+    uint16_t _perimetro_roda_mm = 365; 
 public:
     Motor(int ENA, int IN1, int IN2, Encoder& encoder);
     void setpoint_perc(float setpoint);
     void setpoint_RPM(float setpoint_RPM);
+    void setpoint_cm_per_s(float setpoint_cmpers);
 };
 
 

@@ -1,6 +1,6 @@
 #include "motor.h"
 
-Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.03,0.05,0.1)
+Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.02,0.06,0.1)
 {
     _ENA = ENA;
     _IN1 = IN1;
@@ -34,7 +34,7 @@ void Motor::setpoint_perc(float setpoint)
     }
 }
 
-void Motor::setpoint_RPM(float setpoint_RPM)
+void Motor::setpoint_RPM(float setpoint_RPM) //testar frente e para trás
 {
     Serial.println("setpoint_RPM_colocado: " + String(setpoint_RPM) + " encoder_RPM: " + String(_encoder.get_RPM()));
     if(setpoint_RPM > 0){
@@ -57,4 +57,10 @@ void Motor::setpoint_RPM(float setpoint_RPM)
         digitalWrite(_IN2, LOW);
         Serial.println("Motor parado");
     }
+}
+
+void Motor::setpoint_cm_per_s(float setpoint_cmpers)
+{
+    setpoint_cmpers = ((setpoint_cmpers * 60.0)*10.0)/((float)(_perimetro_roda_mm)); //passar para RPM
+    setpoint_RPM(setpoint_cmpers);
 }
