@@ -17,6 +17,9 @@ private:
     volatile long _passos_encoder;
     long _passos_encoder_last;
     unsigned long _tempo_last;
+    uint16_t _perimetro_roda_mm = 365; 
+    unsigned long _distance_mm; // max de (2^32)-1 mm
+    void add_distance(long delta_passos);
 public:
     Encoder(int pin_yellow, int pin_white);
     int motor_yellow;
@@ -24,6 +27,7 @@ public:
     void add_passos();
     void remove_passos();
     float get_RPM();
+    float get_distance_m();
 };
 
 

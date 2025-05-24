@@ -1,6 +1,6 @@
 #include "motor.h"
 
-Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.02,0.06,0.1)
+Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.02,0.06,0.05)
 {
     _ENA = ENA;
     _IN1 = IN1;
