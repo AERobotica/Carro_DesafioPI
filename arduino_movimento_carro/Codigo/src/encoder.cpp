@@ -16,16 +16,23 @@ Encoder::Encoder(int pin_yellow, int pin_white)
     
 }
 
-void Encoder::remove_passos()
-{
-    _passos_encoder--;
-}
 
 float Encoder::get_RPM()
 {
-     
-    long delta_passos = _passos_encoder - _passos_encoder_last;
-     _passos_encoder_last = _passos_encoder;
+    //Prevenção de overflow do _passos_encoder
+    long delta_passos = 0;
+    if((_passos_encoder < -2047483647 && _passos_encoder_last > 202047483647) || (_passos_encoder > 2047483647 && _passos_encoder_last < -202047483647)){
+        if(_passos_encoder < -2047483647){
+            delta_passos = (2147483648 + _passos_encoder) + (2147483647 - _passos_encoder_last);
+        }else{
+            delta_passos = (_passos_encoder - 2147483647) - (2147483648 + _passos_encoder_last);
+        }
+        _passos_encoder = 0;
+        _passos_encoder_last = 0;
+    }else{
+        delta_passos = _passos_encoder - _passos_encoder_last;
+    }
+    _passos_encoder_last = _passos_encoder;
     unsigned long delta_tempo = 1;
     if(micros() >= _tempo_last){
         //Serial.println("tempo_last: " + String(_tempo_last) + " micros: " + String(micros()));
@@ -45,14 +52,7 @@ float Encoder::get_RPM()
     float RPM = (rotacoes*1000000.0*60.0)/((float)(delta_tempo));
     _tempo_last = micros();
     
-    //Prevenção de overflow do _passos_encoder
-    if(_passos_encoder > 2047483647){
-      _passos_encoder = 0;
-      _passos_encoder_last = 0;
-    }else if(_passos_encoder < -2047483647){
-      _passos_encoder = 0;
-      _passos_encoder_last = 0;
-    }
+    
     return RPM;
 }
 
@@ -64,4 +64,8 @@ float Encoder::get_distance_m()
 void Encoder::add_passos()
 {
     _passos_encoder++;
+}
+void Encoder::remove_passos()
+{
+    _passos_encoder--;
 }

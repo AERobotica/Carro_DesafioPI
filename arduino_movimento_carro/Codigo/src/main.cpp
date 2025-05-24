@@ -4,8 +4,6 @@
 
 
 unsigned long tempo;
-volatile long passos_encoder=0; //volatile para ser possivel alterar o valor fora do fluxo dito normal
-long passos_encoder_last = 0;
 
 Encoder encoder_frente_esq(2, 4);
 Motor   motor_frente_esq(5,6,7, encoder_frente_esq);

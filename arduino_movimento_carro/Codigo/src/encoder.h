@@ -23,10 +23,10 @@ public:
     Encoder(int pin_yellow, int pin_white);
     int motor_yellow;
     int motor_white;
-    void add_passos();
-    void remove_passos();
     float get_RPM();
     float get_distance_m();
+    void remove_passos();
+    void add_passos();
     uint16_t _perimetro_roda_mm = 365; 
 };
 
