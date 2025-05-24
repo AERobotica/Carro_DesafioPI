@@ -20,7 +20,6 @@ private:
     unsigned long _tempo_espera;
     Encoder& _encoder;
     PID _PID_RPM;
-    uint16_t _perimetro_roda_mm = 365; 
 public:
     Motor(int ENA, int IN1, int IN2, Encoder& encoder);
     void setpoint_perc(float setpoint);

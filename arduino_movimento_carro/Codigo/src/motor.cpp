@@ -73,6 +73,6 @@ void Motor::setpoint_RPM(float setpoint_RPM) //testar frente e para trás
 
 void Motor::setpoint_cm_per_s(float setpoint_cmpers) 
 {
-    setpoint_cmpers = ((setpoint_cmpers * 60.0)*10.0)/((float)(_perimetro_roda_mm)); //passar para RPM
+    setpoint_cmpers = ((setpoint_cmpers * 60.0)*10.0)/((float)(_encoder._perimetro_roda_mm)); //passar para RPM
     setpoint_RPM(setpoint_cmpers);
 }
