@@ -35,6 +35,14 @@ void Motor::setpoint_perc(float setpoint)
     }
 }
 
+/**************************************************************************/
+/*!
+    @brief  Irá ler do encoder os RPM e utiliza um controlado PI para manter
+    os RPM pretendidos. Valor de RPM máximo de 320 RPM.
+
+    @return 
+*/
+/**************************************************************************/
 void Motor::setpoint_RPM(float setpoint_RPM) //testar frente e para trás
 {
     if((millis() - _tempo_espera >= 50) || ((millis() < _tempo_espera) && (((4294967295UL - _tempo_espera) + millis()) >= 50))){
