@@ -17,6 +17,7 @@ private:
     int _ENA;
     int _IN1;
     int _IN2;
+    unsigned long _tempo_espera;
     Encoder& _encoder;
     PID _PID_RPM;
     uint16_t _perimetro_roda_mm = 365; 
