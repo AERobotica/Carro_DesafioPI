@@ -24,7 +24,7 @@ PID::PID(float Kc, float Ti, float T_s)//T_s em segundos
     _atuacao_anterior = 0;
 }
 
-uint16_t PID::controlador(float setpoint, float truepoint)
+int16_t PID::controlador(float setpoint, float truepoint, bool direcao)
 {
     //Serial.println("erro: " + String(setpoint - truepoint));
     _erro = setpoint - truepoint;
@@ -37,11 +37,20 @@ uint16_t PID::controlador(float setpoint, float truepoint)
   //Serial.println("Erro: " + String(_erro) + " | Atuação: " + String(_atuacao));
   //Serial.println("Kc:" + String(_Kc) + "_T:" + String(_T) + "_Ti:" + String(_Ti));
   //atuacao de 0 a 100%
-  if(_atuacao > 100){
-    _atuacao = 100;
+  if(direcao){
+    if(_atuacao > 255){
+    _atuacao = 255;
   }else if(_atuacao < 0){
     _atuacao = 0;
   }
+  }else{
+    if(_atuacao > 0){
+    _atuacao = 0;
+  }else if(_atuacao <-255){
+    _atuacao = -255;
+  }
+  }
+  
   //Serial.println("Atuação Filtrada: " + String(_atuacao));
 
   return _atuacao;

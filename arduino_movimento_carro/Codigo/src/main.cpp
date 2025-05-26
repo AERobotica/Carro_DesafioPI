@@ -25,16 +25,18 @@ void setup() {
 void loop() {
 
   
-  if((micros() - tempo) > 500000){
-    //Serial.println("RPM: " + String(encoder_frente_esq.get_RPM()));
-    tempo = micros();
-  }else if(micros() < tempo){
-    tempo = micros();
+  
+  while(micros() - tempo < 5000000){
+    
+  
+  motor_frente_esq.setpoint_RPM(-50.0);
   }
+  tempo = micros();
+  while(micros() - tempo < 5000000){
+    
   
-  motor_frente_esq.setpoint_RPM(100.0);
-  
-  
-
+  motor_frente_esq.setpoint_RPM(50.0);
+  }
+  tempo = micros();
 
 }

@@ -15,7 +15,7 @@ private:
     float _Ti;
 public:
     PID(float Kc, float Ti,float T);
-    uint16_t controlador(float setpoint, float truepoint); 
+    int16_t controlador(float setpoint, float truepoint, bool direcao_frente); 
 };
 
 
