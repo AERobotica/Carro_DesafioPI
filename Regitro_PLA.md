@@ -13,3 +13,5 @@
 | Silva Ribeiro & Granja Anjos | 23 -05-2025       |  21.44    |
 | Silva Ribeiro & Granja Anjos | 23 -05-2025       |  16.85    |
 | Silva Ribeiro | 27 -05-2025       |  2.46     |
+| Silva Ribeiro & Granja Anjos | 28 -05-2025       |  27.80    |
+| Silva Ribeiro | 28 -05-2025       |  11.84     |
