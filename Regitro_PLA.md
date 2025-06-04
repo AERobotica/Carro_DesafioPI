@@ -17,3 +17,4 @@
 | Silva Ribeiro | 28 -05-2025       |  11.84     |
 | Silva Ribeiro | 30 -05-2025       |  37.55     |
 | Silva Ribeiro | 03 -06-2025       |  37.15     |
+| Silva Ribeiro | 04 -06-2025       |  63.68     |
