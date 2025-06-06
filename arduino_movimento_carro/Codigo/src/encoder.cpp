@@ -51,8 +51,10 @@ float Encoder::get_RPM()
 
     float RPM = (rotacoes*1000000.0*60.0)/((float)(delta_tempo));
     _tempo_last = micros();
-    
-    Serial.println("RPM: " + String(RPM));
+    Serial.println("100");
+    Serial.print(">rpm:");
+    Serial.println("100");
+    Serial.println(">true_RPM:" + String(RPM));
     return RPM;
 }
 

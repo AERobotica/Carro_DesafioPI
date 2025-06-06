@@ -29,13 +29,9 @@ void loop() {
   while(micros() - tempo < 5000000){
     
   
-  motor_frente_esq.setpoint_RPM(-50.0);
-  }
-  tempo = micros();
-  while(micros() - tempo < 5000000){
-    
+  motor_frente_esq.setpoint_RPM(100.0);
+ 
   
-  motor_frente_esq.setpoint_RPM(50.0);
   }
   tempo = micros();
 

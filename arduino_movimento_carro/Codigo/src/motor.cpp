@@ -1,6 +1,6 @@
 #include "motor.h"
 
-Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.21,0.15,0.05)
+Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.4,0.006,0.00001)
 {
     _ENA = ENA;
     _IN1 = IN1;
@@ -28,6 +28,7 @@ void Motor::setpoint_perc(float setpoint)
         analogWrite(_ENA, setpoint);
         //Serial.println("setpoint: " + String(setpoint));
     }else{
+        setpoint = (setpoint * 255.0)/100;
         analogWrite(_ENA, setpoint);
         digitalWrite(_IN1, LOW);
         digitalWrite(_IN2, LOW);
