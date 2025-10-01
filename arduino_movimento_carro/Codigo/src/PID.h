@@ -8,7 +8,7 @@ class PID
 private:
     float _erro;
     float _erro_anterior;
-    float _atuacao;
+    
     float _atuacao_anterior;
     unsigned long tempo_anterior;
     float _Kp;
@@ -21,6 +21,7 @@ private:
     //float _T;
     //float _Ti;
 public:
+    float _atuacao;
     PID(float Kc, float Ti,float T);
     int16_t controlador(float setpoint, float truepoint, bool direcao_frente); 
 };

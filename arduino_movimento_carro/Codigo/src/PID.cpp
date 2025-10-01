@@ -56,6 +56,7 @@ int16_t PID::controlador(float setpoint, float truepoint, bool direcao)
 
     }
   _delta_T = (float(micros() - tempo_anterior))/1.0e6;
+  tempo_anterior = micros();
     
   _erro = setpoint - truepoint;
 

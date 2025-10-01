@@ -19,8 +19,9 @@ private:
     int _IN2;
     unsigned long _tempo_espera;
     Encoder& _encoder;
-    PID _PID_RPM;
+    
 public:
+    PID _PID_RPM;
     Motor(int ENA, int IN1, int IN2, Encoder& encoder);
     void setpoint_perc(float setpoint);
     void setpoint_RPM(float setpoint_RPM);

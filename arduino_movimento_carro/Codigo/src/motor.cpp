@@ -1,6 +1,6 @@
 #include "motor.h"
 
-Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.4,0.006,0.00001)
+Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PID_RPM(0.5,0.3,0.0)
 {
     _ENA = ENA;
     _IN1 = IN1;
@@ -15,6 +15,7 @@ Motor::Motor(int ENA, int IN1, int IN2, Encoder& encoder):_encoder(encoder), _PI
 
 void Motor::setpoint_perc(float setpoint)
 {
+    _encoder.mesure_RPM();
     if(setpoint > 0){
         setpoint = (setpoint * 255.0)/100;
         digitalWrite(_IN1, HIGH);
@@ -32,7 +33,7 @@ void Motor::setpoint_perc(float setpoint)
         analogWrite(_ENA, setpoint);
         digitalWrite(_IN1, LOW);
         digitalWrite(_IN2, LOW);
-        Serial.println("Motor parado");
+        //Serial.println("Motor parado");
     }
 }
 
@@ -46,26 +47,27 @@ void Motor::setpoint_perc(float setpoint)
 /**************************************************************************/
 void Motor::setpoint_RPM(float setpoint_RPM) //testar frente e para trás
 {
+    _encoder.mesure_RPM();
+    //Serial.println("antes");
     if((millis() - _tempo_espera >= 50) || ((millis() < _tempo_espera) && (((4294967295UL - _tempo_espera) + millis()) >= 50))){
-        //Serial.println("setpoint_RPM_colocado: " + String(setpoint_RPM) + " encoder_RPM: " + String(_encoder.get_RPM()) + );
+        //Serial.println("setpoint_RPM_colocado: " + String(setpoint_RPM) + " encoder_RPM: " + String(_encoder.get_RPM()));
         if(setpoint_RPM > 0){
             setpoint_RPM = _PID_RPM.controlador((float) setpoint_RPM, (float) _encoder.get_RPM(), true);
-            digitalWrite(_IN1, LOW);
-            digitalWrite(_IN2, HIGH);
+            digitalWrite(_IN1, HIGH);
+            digitalWrite(_IN2, LOW);
             analogWrite(_ENA, setpoint_RPM);
-            Serial.print(" setpoint_RPM_colocado: " + String(setpoint_RPM));
             //Serial.println("setpoint: " + String(setpoint_RPM));
         }else if(setpoint_RPM < 0){
             setpoint_RPM = _PID_RPM.controlador((float) setpoint_RPM, (float) _encoder.get_RPM(), false);
-            digitalWrite(_IN1, HIGH);
-            digitalWrite(_IN2, LOW);
+            digitalWrite(_IN1, LOW);
+            digitalWrite(_IN2, HIGH);
             analogWrite(_ENA, -setpoint_RPM);
             //Serial.println("setpoint: " + String(setpoint_RPM));
         }else{
             analogWrite(_ENA, setpoint_RPM);
             digitalWrite(_IN1, LOW);
             digitalWrite(_IN2, LOW);
-            Serial.println("Motor parado");
+            //Serial.println("Motor parado");
         }
         _tempo_espera = millis();
     }
