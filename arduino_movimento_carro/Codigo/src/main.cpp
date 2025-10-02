@@ -52,11 +52,74 @@ void setup() {
 void loop() {
 
  
-  //while(micros() - tempo < 5000000){
-    
+   //verificar se existe algo no serial
+  if(Serial.available() > 0){
+    //ler a string até linha abaixo
+    String input = Serial.readStringUntil('\n');
+    //retirar espaços
+    input.trim();
+
+    int index_equal = input.indexOf('=');
+
+    //verificar unidade composto por "unidade.funçao"
+    if(index_equal != -1 && input.length() - 1){
+      String comando = input.substring(0,index_equal-1);
+      
+      int index_unidade = input.indexOf('.');
+      if(index_unidade != -1){
+        String unidade = input.substring(0,index_unidade);
+        String funcao = input.substring(index_unidade + 1, index_equal);
+        float atuacao = input.substring(index_equal + 1, input.length()).toFloat(); 
+        if( unidade == "motor_frente_esq"){
+          if(funcao == "setpoint_perc"){
+            Serial.println(atuacao);
+            motor_frente_esq.setpoint_perc(atuacao);
+          }
+          else if(funcao == "setpoint_RPM"){
+            motor_frente_esq.setpoint_RPM(atuacao);
+          }
+          else if(funcao == "setpoint_cm_per_s"){
+            motor_frente_esq.setpoint_cm_per_s(atuacao);
+          }
+        }
+        else if (unidade == "motor_frente_dir"){
+          Serial.println("Entrou");
+          Serial.println(funcao);
+          if(funcao == "setpoint_perc"){
+            motor_frente_dir.setpoint_perc(atuacao);
+          }
+          else if(funcao == "setpoint_RPM"){
+            motor_frente_dir.setpoint_RPM(atuacao);
+          }
+          else if(funcao == "setpoint_cm_per_s"){
+            motor_frente_dir.setpoint_cm_per_s(atuacao);
+          }
+        }
+        else if (unidade == "encoder_frente_esq"){
+          if(funcao == "get_distance_m"){
+            encoder_frente_esq.get_distance_m(); //mandar via serial
+          }
+          else if(funcao == "get_RPM"){
+            encoder_frente_esq.get_RPM();
+          }
+        }
+        else if (unidade == "encoder_frente_dir"){
+          if(funcao == "get_distance_m"){
+            encoder_frente_dir.get_distance_m(); //mandar via serial
+          }
+          else if(funcao == "get_RPM"){
+            encoder_frente_dir.get_RPM();
+          }
+        }
+        
+        
+      }
+    }
+
+  }
   
-  motor_frente_esq.setpoint_RPM(100.0);
-  motor_frente_dir.setpoint_RPM(100.0);
+  //while(micros() - tempo < 5000000){
+  
   Serial.println(">RPM_esq:" + String(encoder_frente_esq.get_RPM()));
   Serial.println(">distancia_esq:" + String(encoder_frente_esq.get_distance_m()));
   Serial.println(">atuacao_esq:" + String(motor_frente_esq._PID_RPM._atuacao));
